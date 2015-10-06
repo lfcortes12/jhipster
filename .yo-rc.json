@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "arbitramentos",
+    "packageName": "co.gov.defensajuridica.arbitramentos",
+    "packageFolder": "co/gov/defensajuridica/arbitramentos",
+    "authenticationType": "oauth2",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "gulp",
+    "javaVersion": "8",
+    "enableTranslation": true,
+    "rememberMeKey": "edd1ae7d439f74ff95aae8d7626592da7a66cc6c"
+  }
+}
