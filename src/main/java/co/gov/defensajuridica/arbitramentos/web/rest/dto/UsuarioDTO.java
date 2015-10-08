@@ -1,5 +1,6 @@
 package co.gov.defensajuridica.arbitramentos.web.rest.dto;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,10 +12,16 @@ public class UsuarioDTO implements Serializable {
 
     private Long id;
 
+    @NotNull
+    @Size(min = 3)
     private String email;
 
+    @NotNull
+    @Size(min = 8)
     private String password;
 
+    @NotNull
+    @Size(min = 3)
     private String username;
 
     public Long getId() {

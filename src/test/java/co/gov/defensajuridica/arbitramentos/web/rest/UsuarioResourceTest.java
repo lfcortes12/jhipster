@@ -114,6 +114,63 @@ public class UsuarioResourceTest {
 
     @Test
     @Transactional
+    public void checkEmailIsRequired() throws Exception {
+        int databaseSizeBeforeTest = usuarioRepository.findAll().size();
+        // set the field null
+        usuario.setEmail(null);
+
+        // Create the Usuario, which fails.
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
+
+        restUsuarioMockMvc.perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioDTO)))
+                .andExpect(status().isBadRequest());
+
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        assertThat(usuarios).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkPasswordIsRequired() throws Exception {
+        int databaseSizeBeforeTest = usuarioRepository.findAll().size();
+        // set the field null
+        usuario.setPassword(null);
+
+        // Create the Usuario, which fails.
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
+
+        restUsuarioMockMvc.perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioDTO)))
+                .andExpect(status().isBadRequest());
+
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        assertThat(usuarios).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkUsernameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = usuarioRepository.findAll().size();
+        // set the field null
+        usuario.setUsername(null);
+
+        // Create the Usuario, which fails.
+        UsuarioDTO usuarioDTO = usuarioMapper.usuarioToUsuarioDTO(usuario);
+
+        restUsuarioMockMvc.perform(post("/api/usuarios")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(usuarioDTO)))
+                .andExpect(status().isBadRequest());
+
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        assertThat(usuarios).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllUsuarios() throws Exception {
         // Initialize the database
         usuarioRepository.saveAndFlush(usuario);

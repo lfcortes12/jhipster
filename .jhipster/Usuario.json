@@ -1,0 +1,29 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": ["required","minlength"],
+            "fieldValidateRulesMinlength": "3"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "password",
+            "fieldType": "String",
+            "fieldValidateRules": ["required", "minlength"],
+            "fieldValidateRulesMinlength": "8"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "username",
+            "fieldType": "String",
+            "fieldValidateRules": ["required", "minlength"],
+            "fieldValidateRulesMinlength": "3"
+        }
+    ],
+    "changelogDate": "20151006164708",
+    "dto": "mapstruct",
+    "pagination": "pagination"
+}

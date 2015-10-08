@@ -28,6 +28,7 @@ angular.module('arbitramentosApp')
  */
     .constant('LANGUAGES', [
         'en', 'fr'
+        ,'es'
         //JHipster will add new languages here
     ]
 );

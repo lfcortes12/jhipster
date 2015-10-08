@@ -1,25 +1,7 @@
 package co.gov.defensajuridica.arbitramentos.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import co.gov.defensajuridica.arbitramentos.domain.Usuario;
-import co.gov.defensajuridica.arbitramentos.repository.UsuarioRepository;
-import co.gov.defensajuridica.arbitramentos.repository.search.UsuarioSearchRepository;
-import co.gov.defensajuridica.arbitramentos.web.rest.util.HeaderUtil;
-import co.gov.defensajuridica.arbitramentos.web.rest.util.PaginationUtil;
-import co.gov.defensajuridica.arbitramentos.web.rest.dto.UsuarioDTO;
-import co.gov.defensajuridica.arbitramentos.web.rest.mapper.UsuarioMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryString;
 
-import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -28,7 +10,38 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import co.gov.defensajuridica.arbitramentos.domain.Usuario;
+import co.gov.defensajuridica.arbitramentos.repository.UsuarioRepository;
+import co.gov.defensajuridica.arbitramentos.repository.search.UsuarioSearchRepository;
+import co.gov.defensajuridica.arbitramentos.web.rest.dto.UsuarioDTO;
+import co.gov.defensajuridica.arbitramentos.web.rest.mapper.UsuarioMapper;
+import co.gov.defensajuridica.arbitramentos.web.rest.util.HeaderUtil;
+import co.gov.defensajuridica.arbitramentos.web.rest.util.PaginationUtil;
+
+import com.codahale.metrics.annotation.Timed;
 
 /**
  * REST controller for managing Usuario.
@@ -47,6 +60,14 @@ public class UsuarioResource {
 
     @Inject
     private UsuarioSearchRepository usuarioSearchRepository;
+    
+
+    /// Camunda dependencies
+    @Autowired
+    private TaskService taskService;
+    
+    @Autowired
+    private RuntimeService runtimeService;
 
     /**
      * POST  /usuarios -> Create a new usuario.
@@ -55,7 +76,7 @@ public class UsuarioResource {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<UsuarioDTO> createUsuario(@RequestBody UsuarioDTO usuarioDTO) throws URISyntaxException {
+    public ResponseEntity<UsuarioDTO> createUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) throws URISyntaxException {
         log.debug("REST request to save Usuario : {}", usuarioDTO);
         if (usuarioDTO.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new usuario cannot already have an ID").body(null);
@@ -63,6 +84,18 @@ public class UsuarioResource {
         Usuario usuario = usuarioMapper.usuarioDTOToUsuario(usuarioDTO);
         Usuario result = usuarioRepository.save(usuario);
         usuarioSearchRepository.save(result);
+        
+        //starts a Sample process
+        ProcessInstance processInstance = runtimeService
+        	      .startProcessInstanceByKey("Sample");
+        log.info("started {}", processInstance);
+
+        Task task = taskService.createTaskQuery()
+          .processInstanceId(processInstance.getId()).singleResult();
+        //runtimeService.signal(task.getExecutionId());
+        //log.info("signaled {}", task);
+        	    
+        	    
         return ResponseEntity.created(new URI("/api/usuarios/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("usuario", result.getId().toString()))
                 .body(usuarioMapper.usuarioToUsuarioDTO(result));
@@ -75,11 +108,12 @@ public class UsuarioResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<UsuarioDTO> updateUsuario(@RequestBody UsuarioDTO usuarioDTO) throws URISyntaxException {
+    public ResponseEntity<UsuarioDTO> updateUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) throws URISyntaxException {
         log.debug("REST request to update Usuario : {}", usuarioDTO);
         if (usuarioDTO.getId() == null) {
             return createUsuario(usuarioDTO);
         }
+        
         Usuario usuario = usuarioMapper.usuarioDTOToUsuario(usuarioDTO);
         Usuario result = usuarioRepository.save(usuario);
         usuarioSearchRepository.save(usuario);

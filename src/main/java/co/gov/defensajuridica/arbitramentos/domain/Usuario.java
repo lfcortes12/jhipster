@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -20,14 +21,20 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(name = "email")
+
+    @NotNull
+    @Size(min = 3)        
+    @Column(name = "email", nullable = false)
     private String email;
-    
-    @Column(name = "password")
+
+    @NotNull
+    @Size(min = 8)        
+    @Column(name = "password", nullable = false)
     private String password;
-    
-    @Column(name = "username")
+
+    @NotNull
+    @Size(min = 3)        
+    @Column(name = "username", nullable = false)
     private String username;
 
     public Long getId() {
