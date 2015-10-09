@@ -1,0 +1,21 @@
+{
+    "arbitramentosApp": {
+        "execution" : {
+            "home": {
+                "title": "Executions BPM",
+                "createLabel": "Create a new Execution",
+                "createOrEditLabel": "Create or edit a Execution"
+            },
+            "created": "A new Execution is created with identifier {{ param }}",
+            "updated": "A Execution is updated with identifier {{ param }}",
+            "deleted": "A Execution is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Execution {{ id }}?"
+            },
+            "detail": {
+                "title": "Execution"
+            },
+            "processInstanceId": "Process Instance"
+        }
+    }
+}

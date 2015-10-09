@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
+            <a class="navbar-brand" href="#/"><span translate="global.title">Agencia para la Defensa Juridica del Estado</span> </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
@@ -28,8 +28,12 @@
                                 </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ><a ui-sref="usuario"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.usuario">usuario</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="task"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.task">task</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="execution"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.execution">execution</span></a></li>
+                        <li ui-sref-active="active" ><a ui-sref="proceso"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.entities.proceso">proceso</span></a></li>
                         <!-- JHipster will add entities to the menu here -->
                     </ul>
                 </li>

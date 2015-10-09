@@ -28,9 +28,9 @@ import com.codahale.metrics.annotation.Timed;
  */
 @RestController
 @RequestMapping("/api")
-public class TaskResource {
+public class ExecutionResource {
 
-    private final Logger log = LoggerFactory.getLogger(TaskResource.class);
+    private final Logger log = LoggerFactory.getLogger(ExecutionResource.class);
     
 
     /// Camunda dependencies
@@ -40,22 +40,19 @@ public class TaskResource {
     @Autowired
     private RuntimeService runtimeService;
     
-    @RequestMapping(value = "/tasks",
+    @RequestMapping(value = "/executions",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<TaskDTO> listarTareas() throws URISyntaxException {
-    	
-    	List<Task> list = taskService.createTaskQuery().list();
-    	runtimeService.createExecutionQuery().list();
-    	List<TaskDTO> results = new ArrayList<TaskDTO>();
-    	
-    	for (Task task : list) {
-    		TaskDTO taskDTO = new TaskDTO();
-			BeanUtils.copyProperties(task, taskDTO);
-			results.add(taskDTO);
+    public List<ExecutionDTO> listarProcesos() throws URISyntaxException {
+    	List<Execution> list = runtimeService.createExecutionQuery().list();
+    	List<ExecutionDTO> results = new ArrayList<ExecutionDTO>();
+    	for (Execution execution : list) {
+			ExecutionDTO executionDTO = new ExecutionDTO();
+			BeanUtils.copyProperties(execution, executionDTO);
+			results.add(executionDTO);
 		}
-    	log.info("CANTIDAD DE TAREAS {}", list.size());
+    	log.info("CANTIDAD DE INSTANCIAS {}", list.size());
     	return results;
     }
 

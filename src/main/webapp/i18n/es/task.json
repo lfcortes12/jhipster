@@ -1,0 +1,18 @@
+{
+    "arbitramentosApp": {
+        "task" : {
+            "home": {
+                "title": "Tareas",
+                "createLabel": "Crear una tarea",
+                "createOrEditLabel": "Crear o editar una tarea"
+            },
+            "delete": {
+                "question": "Está seguro que desea eliminar la tarea {{ id }}?"
+            },
+            "detail": {
+                "title": "Tareas"
+            },
+            "name": "Nombre"
+        }
+    }
+}

@@ -27,8 +27,8 @@ angular.module('arbitramentosApp')
  They are written in English to avoid character encoding issues (not a perfect solution)
  */
     .constant('LANGUAGES', [
-        'en', 'fr'
-        ,'es'
+        'en',
+        'es'
         //JHipster will add new languages here
     ]
 );

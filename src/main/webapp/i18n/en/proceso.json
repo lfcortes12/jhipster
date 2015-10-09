@@ -1,0 +1,24 @@
+{
+    "arbitramentosApp": {
+        "proceso" : {
+            "home": {
+                "title": "Processes",
+                "createLabel": "Create a new process",
+                "createOrEditLabel": "Create or edit a process"
+            },
+            "created": "A new process is created with identifier {{ param }}",
+            "updated": "A process is updated with identifier {{ param }}",
+            "deleted": "A process is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete process {{ id }}?"
+            },
+            "detail": {
+                "title": "Process"
+            },
+            "descripcionHechos": "Descripcion Hechos",
+            "estadoActualProceso": "Estado Actual Proceso",
+            "fechaHechos": "Fecha Hechos",
+            "hechos": "Hechos"
+        }
+    }
+}

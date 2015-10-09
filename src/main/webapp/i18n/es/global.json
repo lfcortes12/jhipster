@@ -1,11 +1,14 @@
 {
     "global": {
-        "title": "arbitramentos",
+        "title": "Arbitramentos",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
             "entities": {
-                "main": "Entities",
+                "main": "Entidades",
+                "task": "Tareas",
+                "execution": "Instancias BPM",
+                "proceso": "Proceso",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -104,5 +107,5 @@
             "datetimelocal": "This field should be a date and time."
         }
     },
-    "footer": "pie de página"
+    "footer": "Agencia Nacional de Defensa Jurídica del Estado. Derechos Reservados 2015"
 }

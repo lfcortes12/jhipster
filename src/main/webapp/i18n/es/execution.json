@@ -1,0 +1,18 @@
+{
+    "arbitramentosApp": {
+        "execution" : {
+            "home": {
+                "title": "Instancias BPM",
+                "createLabel": "Crear una instancia",
+                "createOrEditLabel": "Crear o editar una instancia"
+            },
+            "delete": {
+                "question": "Está seguro que quiere eliminar esa instancia {{ id }}?"
+            },
+            "detail": {
+                "title": "Instancias"
+            },
+            "processInstanceId": "Instancia Proceso"
+        }
+    }
+}
